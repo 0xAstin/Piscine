@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Balloon</title>
+  <style>
+    #balloon {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: red;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #balloon:hover {
+      transform: scale(1.1);
+    }
+
+    .explode {
+      animation: explode 0.5s forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        background-color: red;
+      }
+      50% {
+        transform: scale(2);
+        background-color: yellow;
+      }
+      100% {
+        transform: scale(1);
+        background-color: red;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="balloon"></div>
+  <script>
+    const balloon = document.getElementById("balloon");
+    let size = 200;
+    let color = "red";
+
+    balloon.addEventListener("mouseover", () => {
+      if (size > 200) {
+        size -= 5;
+        changeColor();
+        balloon.style.width = `${size}px`;
+        balloon.style.height = `${size}px`;
+      }
+    });
+
+    balloon.addEventListener("mouseout", () => {
+      if (size < 420) {
+        size += 5;
+        changeColor();
+        balloon.style.width = `${size}px`;
+        balloon.style.height = `${size}px`;
+      } else {
+        balloon.classList.add("explode");
+        setTimeout(() => {
+          balloon.classList.remove("explode");
+          size = 200;
+          changeColor();
+          balloon.style.width = `${size}px`;
+          balloon.style.height = `${size}px`;
+        }, 500);
+      }
+    });
+
+    balloon.addEventListener("click", () => {
+      if (size < 420) {
+        size += 10;
+        changeColor();
+        balloon.style.width = `${size}px`;
+        balloon.style.height = `${size}px`;
+      } else {
+        balloon.classList.add("explode");
+        setTimeout(() => {
+          balloon.classList.remove("explode");
+          size = 200;
+          changeColor();
+          balloon.style.width = `${size}px`;
+          balloon.style.height = `${size}px`;
+        }, 500);
+      }
+    });
+
+    function changeColor() {
+      switch (color) {
+        case "red":
+          color = "green";
+          balloon.style.backgroundColor = "green";
+          break;
+        case "green":
+          color = "blue";
+          balloon.style.backgroundColor = "blue";
+          break;
+        case "blue":
+          color = "red";
+          balloon.style.backgroundColor = "red";
+          break;
+        default:
+          break;
+      }
+    }
+  </script>
+</body>
+</html>
